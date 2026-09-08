@@ -39,6 +39,11 @@ class Config:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    SQLALCHEMY_ENGINE_OPTIONS = {
+    "pool_pre_ping": True,
+    "pool_recycle": 300,
+    }
+
     JWT_SECRET = os.environ.get(
         "JWT_SECRET",
         "jwt-campus-attendance-dev-secret-change-me"

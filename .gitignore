@@ -5,3 +5,5 @@ instance/*.db
 venv/
 .DS_Store
 *.log
+.env
+.vercel/
