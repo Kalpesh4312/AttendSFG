@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Teacher dashboard — AttendAI{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-24" style="flex-wrap:wrap; gap:16px;">
+  <div>
+    <div class="eyebrow" id="panelLabel">Teacher panel</div>
+    <h2 class="h-section mt-8" id="welcomeText">My classes</h2>
+  </div>
+  <button class="btn btn-teal" id="newClassBtn">+ New class</button>
+</div>
+
+<div id="alertBox"></div>
+
+<div class="grid grid-auto" id="classesGrid"></div>
+<div class="empty-state hidden" id="emptyState">
+  <p><strong>You haven't created any classes yet.</strong><br>Create one to start taking attendance.</p>
+</div>
+
+<!-- New class modal -->
+<div class="modal-backdrop hidden" id="newClassBackdrop">
+  <div class="modal" style="max-width:480px;">
+    <h3 class="h-card mb-16">Create a new class</h3>
+    <div id="newClassAlertBox"></div>
+    <form id="newClassForm">
+      <div class="field">
+        <label for="className">Class name</label>
+        <input type="text" id="className" placeholder="BTech Data Science" required>
+      </div>
+      <div class="field">
+        <label for="classSection">Section</label>
+        <input type="text" id="classSection" placeholder="TY-CSE-B">
+      </div>
+      <div class="field">
+        <label>Subjects <span class="text-muted" style="font-weight:500;">(optional — add as many as this class has)</span></label>
+        <div id="subjectRows"></div>
+        <button type="button" class="btn btn-outline btn-sm mt-8" id="addSubjectRowBtn">+ Add another subject</button>
+        <p class="help-text mt-8">You can also add or remove subjects later from the class page.</p>
+      </div>
+      <div class="flex gap-12 mt-16">
+        <button type="button" class="btn btn-outline w-full" id="cancelNewClassBtn">Cancel</button>
+        <button type="submit" class="btn btn-teal w-full">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/teacher_dashboard.js') }}"></script>
+{% endblock %}

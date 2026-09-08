@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Enroll your face — AttendAI{% endblock %}
+{% block content %}
+<div class="card" style="max-width:520px; margin:0 auto;">
+  <div class="text-center mb-24">
+    <div class="eyebrow">Step 1 of 1</div>
+    <h2 class="h-section mt-8">Enroll your face</h2>
+    <p class="mt-8">This is the reference scan every future attendance check will be compared against. Find good lighting and look straight at the camera.</p>
+  </div>
+
+  <div id="alertBox"></div>
+
+  <div class="scan-wrap" id="scanWrap">
+    <video id="video" autoplay muted playsinline></video>
+    <div class="scan-ring"></div>
+  </div>
+  <div class="scan-status" id="scanStatus">Camera not started</div>
+
+  <div class="flex gap-12 mt-24 justify-between">
+    <button class="btn btn-outline w-full" id="startBtn">Start camera</button>
+    <button class="btn btn-teal w-full" id="captureBtn" disabled>Capture &amp; save</button>
+  </div>
+  <p class="text-center text-sm mt-16"><a href="/student/dashboard" style="color:var(--teal-dark); font-weight:700;">Skip for now →</a></p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='lib/face-api.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/face.js') }}"></script>
+<script src="{{ url_for('static', filename='js/enroll_face.js') }}"></script>
+{% endblock %}

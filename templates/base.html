@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}AI Attendance System{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <div class="page">
+    {% block nav %}
+    <header class="topnav">
+      <div class="container">
+        <a href="/" class="brand">
+          <span class="brand-mark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <span>AttendAI
+            <div class="brand-sub">Face · Token · Geo-Fence</div>
+          </span>
+        </a>
+        <nav class="nav-links" id="navLinks"></nav>
+      </div>
+    </header>
+    {% endblock %}
+
+    <main class="main">
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <footer class="app-footer">AI-Driven Attendance System &mdash; Facial Recognition · Session Token · Geo-Fencing</footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

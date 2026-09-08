@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Log in — AttendAI{% endblock %}
+{% block nav %}{% endblock %}
+{% block content %}
+<div class="auth-shell" style="margin:-32px -24px;">
+  <div class="auth-side">
+    <a href="/" class="brand">
+      <span class="brand-mark">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span>AttendAI</span>
+    </a>
+    <div>
+      <div class="eyebrow" style="color:var(--teal);">Welcome back</div>
+      <h2 class="h-display mt-8" style="color:#fff;">Verify once. Attend instantly.</h2>
+      <p class="mt-16" style="max-width:340px;">Log in to your teacher or student panel to continue.</p>
+    </div>
+    <div class="text-sm" style="color:#7c879b;">Semester Project · AI-Driven Attendance System</div>
+  </div>
+
+  <div class="auth-form-col">
+    <div class="auth-form-wrap">
+      <h2 class="h-section mb-24">Log in</h2>
+      <div id="alertBox"></div>
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" required placeholder="you@college.edu">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" required placeholder="••••••••">
+          <p class="help-text mt-8" style="text-align:right;"><a href="/forgot-password" style="color:var(--teal-dark); font-weight:700;">Forgot password?</a></p>
+        </div>
+        <button type="submit" class="btn btn-teal btn-block" id="submitBtn">Log in</button>
+      </form>
+      <p class="text-center mt-16 text-sm">No account yet? <a href="/register" style="color:var(--teal-dark); font-weight:700;">Register</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}Class — AttendAI{% endblock %}
+{% block content %}
+<a href="/teacher/dashboard" class="text-sm text-muted">← Back to my classes</a>
+
+<div class="flex justify-between items-center mt-16 mb-8" style="flex-wrap:wrap; gap:16px;">
+  <div>
+    <div class="eyebrow" id="classSubtitle"></div>
+    <h2 class="h-section mt-8" id="className">Loading…</h2>
+  </div>
+  <div class="flex gap-12 items-center">
+    <div class="text-sm text-muted">Join code</div>
+    <span class="chip chip-teal mono" id="joinCodeChip" style="font-size:0.9rem;"></span>
+  </div>
+</div>
+
+<div id="alertBox"></div>
+
+<div class="flex gap-8 mb-24 mt-16" style="border-bottom:1.5px solid var(--border);">
+  <button class="tab-btn active" data-tab="subjects">Subjects</button>
+  <button class="tab-btn" data-tab="students">Students</button>
+  <button class="tab-btn" data-tab="teachers">Teachers</button>
+  <button class="tab-btn" data-tab="overview">Overview</button>
+</div>
+
+<div id="tab-subjects" class="tab-panel">
+  <div class="card mb-24" id="addSubjectCard">
+    <div class="h-card mb-16">Add a subject</div>
+    <form id="addSubjectForm" class="flex gap-12" style="align-items:flex-end;">
+      <div class="field w-full" style="margin-bottom:0;">
+        <label for="subjectName">Subject name</label>
+        <input type="text" id="subjectName" placeholder="e.g. Machine Learning" required>
+      </div>
+      <button type="submit" class="btn btn-teal">Add subject</button>
+    </form>
+  </div>
+  <div class="grid grid-auto" id="subjectsGrid"></div>
+  <div class="empty-state hidden" id="emptySubjects">
+    <p><strong>No subjects yet.</strong><br>Add each subject this class covers — attendance is tracked separately per subject.</p>
+  </div>
+</div>
+
+<div id="tab-students" class="tab-panel hidden">
+  <div class="card mb-24" id="addStudentCard">
+    <div class="h-card mb-16">Add a student</div>
+    <form id="addStudentForm" class="flex gap-12" style="align-items:flex-end;">
+      <div class="field w-full" style="margin-bottom:0;">
+        <label for="studentEmail">Student email</label>
+        <input type="email" id="studentEmail" placeholder="student@college.edu" required>
+      </div>
+      <button type="submit" class="btn btn-teal">Add</button>
+    </form>
+    <p class="help-text mt-8">The student must already have a registered account. Students can also self-join using the class join code above.</p>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Name</th><th>Enrollment No</th><th>Email</th><th>Face</th><th></th></tr></thead>
+      <tbody id="studentsBody"></tbody>
+    </table>
+    <div class="empty-state hidden" id="emptyStudents">No students enrolled yet.</div>
+  </div>
+</div>
+
+<div id="tab-teachers" class="tab-panel hidden">
+  <div class="card mb-24">
+    <div class="flex justify-between items-center mb-16">
+      <div class="h-card">Class teacher</div>
+      <span class="chip chip-muted" id="classTeacherChip">None assigned</span>
+    </div>
+    <p class="help-text mb-16">The class teacher has full control over this class's roster, subjects, and teacher list — the same as an admin. Only the admin can assign or change who the class teacher is; the class teacher can't hand this off themselves.</p>
+    <form id="setClassTeacherForm" class="flex gap-12 hidden" style="align-items:flex-end;">
+      <div class="field w-full" style="margin-bottom:0;">
+        <label for="classTeacherSelect">Make class teacher</label>
+        <select id="classTeacherSelect"></select>
+      </div>
+      <button type="submit" class="btn btn-teal">Set</button>
+    </form>
+  </div>
+
+  <div class="card mb-24" id="addTeacherCard">
+    <div class="h-card mb-16">Add a teacher to this class</div>
+    <form id="addTeacherForm" class="flex gap-12" style="align-items:flex-end;">
+      <div class="field w-full" style="margin-bottom:0;">
+        <label for="teacherEmail">Teacher email</label>
+        <input type="email" id="teacherEmail" placeholder="teacher@college.edu" required>
+      </div>
+      <button type="submit" class="btn btn-teal">Add</button>
+    </form>
+    <p class="help-text mt-8">The teacher must already have a registered account.</p>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Name</th><th>Email</th><th></th></tr></thead>
+      <tbody id="teachersBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="tab-overview" class="tab-panel hidden">
+  <div class="flex justify-between items-center mb-16">
+    <div class="text-sm text-muted" id="overviewSummary"></div>
+    <button class="btn btn-outline btn-sm" id="exportMatrixBtn">Export CSV</button>
+  </div>
+  <div class="card matrix-table-wrap">
+    <table class="matrix-table">
+      <thead>
+        <tr id="matrixHeaderRow"></tr>
+      </thead>
+      <tbody id="overviewBody"></tbody>
+    </table>
+    <div class="empty-state hidden" id="emptyOverview">No sessions have been held in any subject yet.</div>
+  </div>
+</div>
+
+<style>
+.tab-btn { background:none; border:none; padding:10px 4px; margin-right:24px; font-family:inherit; font-weight:700; font-size:0.9rem; color:var(--text-muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1.5px; }
+.tab-btn.active { color:var(--navy-950); border-bottom-color:var(--teal); }
+</style>
+{% endblock %}
+{% block scripts %}
+<script>const CLASS_ID = {{ class_id }};</script>
+<script src="{{ url_for('static', filename='js/teacher_class_detail.js') }}"></script>
+{% endblock %}

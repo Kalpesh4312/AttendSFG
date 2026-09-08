@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Subject — AttendAI{% endblock %}
+{% block content %}
+<a href="#" id="backLink" class="text-sm text-muted">← Back to class</a>
+
+<div class="flex justify-between items-center mt-16 mb-8" style="flex-wrap:wrap; gap:16px;">
+  <div>
+    <div class="eyebrow" id="classNameLabel"></div>
+    <h2 class="h-section mt-8" id="subjectName">Loading…</h2>
+  </div>
+  <button class="btn btn-teal" id="startSessionBtn">Start attendance session</button>
+</div>
+
+<div id="alertBox"></div>
+
+<div class="flex gap-8 mb-24 mt-16" style="border-bottom:1.5px solid var(--border);">
+  <button class="tab-btn active" data-tab="sessions">Sessions</button>
+  <button class="tab-btn" data-tab="report">Report</button>
+  <button class="tab-btn" data-tab="teachers">Subject teachers</button>
+</div>
+
+<div id="tab-sessions" class="tab-panel">
+  <div class="card">
+    <table>
+      <thead><tr><th>Started</th><th>Status</th><th>Present</th><th></th></tr></thead>
+      <tbody id="sessionsBody"></tbody>
+    </table>
+    <div class="empty-state hidden" id="emptySessions">No attendance sessions have been started yet for this subject.</div>
+  </div>
+</div>
+
+<div id="tab-report" class="tab-panel hidden">
+  <div class="flex justify-between items-center mb-16">
+    <div class="text-sm text-muted" id="reportSummary"></div>
+    <button class="btn btn-outline btn-sm" id="exportBtn">Export CSV</button>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Name</th><th>Enrollment No</th><th>Present</th><th>Attendance</th></tr></thead>
+      <tbody id="reportBody"></tbody>
+    </table>
+    <div class="empty-state hidden" id="emptyReport">No data yet.</div>
+  </div>
+</div>
+
+<div id="tab-teachers" class="tab-panel hidden">
+  <div class="card mb-24" id="assignTeacherCard">
+    <div class="h-card mb-16">Assign a teacher to this subject</div>
+    <form id="assignTeacherForm" class="flex gap-12" style="align-items:flex-end;">
+      <div class="field w-full" style="margin-bottom:0;">
+        <label for="teacherSelect">Teacher</label>
+        <select id="teacherSelect" required></select>
+      </div>
+      <button type="submit" class="btn btn-teal">Assign</button>
+    </form>
+    <p class="help-text mt-8">Only teachers already added to this class (Class page → Teachers tab) can be assigned to a subject. Only a subject's assigned teacher (or admin) can start attendance sessions for it.</p>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Name</th><th>Email</th><th></th></tr></thead>
+      <tbody id="subjectTeachersBody"></tbody>
+    </table>
+    <div class="empty-state hidden" id="emptySubjectTeachers">No teacher assigned to this subject yet — attendance sessions can't be started until one is.</div>
+  </div>
+</div>
+
+<!-- Start session modal -->
+<div class="modal-backdrop hidden" id="sessionModalBackdrop">
+  <div class="modal">
+    <h3 class="h-card mb-16">Start attendance session</h3>
+    <div id="sessionAlertBox"></div>
+    <form id="sessionForm">
+      <div class="field">
+        <label for="durationInput">Duration (minutes)</label>
+        <input type="number" id="durationInput" value="10" min="1" max="180" required>
+      </div>
+      <div class="field">
+        <label for="radiusInput">Geo-fence radius (meters)</label>
+        <input type="number" id="radiusInput" value="100" min="4" max="5000" required>
+      </div>
+      <p class="help-text mb-16">Your current location will be captured as the classroom location — allow location access when prompted.</p>
+      <div class="flex gap-12">
+        <button type="button" class="btn btn-outline w-full" id="cancelSessionBtn">Cancel</button>
+        <button type="submit" class="btn btn-teal w-full" id="confirmSessionBtn">Start session</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+.tab-btn { background:none; border:none; padding:10px 4px; margin-right:24px; font-family:inherit; font-weight:700; font-size:0.9rem; color:var(--text-muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1.5px; }
+.tab-btn.active { color:var(--navy-950); border-bottom-color:var(--teal); }
+</style>
+{% endblock %}
+{% block scripts %}
+<script>const SUBJECT_ID = {{ subject_id }};</script>
+<script src="{{ url_for('static', filename='js/geolocation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/teacher_subject_detail.js') }}"></script>
+{% endblock %}

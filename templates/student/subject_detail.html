@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Subject — AttendAI{% endblock %}
+{% block content %}
+<a href="#" id="backLink" class="text-sm text-muted">← Back to class</a>
+
+<div class="flex justify-between items-center mt-16 mb-24" style="flex-wrap:wrap; gap:16px;">
+  <div>
+    <div class="eyebrow" id="classNameLabel"></div>
+    <h2 class="h-section mt-8" id="subjectName">Loading…</h2>
+  </div>
+  <a href="/student/mark-attendance" class="btn btn-teal">Mark attendance</a>
+</div>
+
+<div id="alertBox"></div>
+
+<div class="grid grid-3 mb-24">
+  <div class="card stat-card">
+    <div class="stat-value" id="statPercent">—</div>
+    <div class="stat-label">Attendance</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-value" id="statPresent">—</div>
+    <div class="stat-label">Sessions present</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-value" id="statTotal">—</div>
+    <div class="stat-label">Total sessions</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="h-card mb-16">Session history</div>
+  <table>
+    <thead><tr><th>Date</th><th>Status</th></tr></thead>
+    <tbody id="historyBody"></tbody>
+  </table>
+  <div class="empty-state hidden" id="emptyHistory">No sessions have been held for this subject yet.</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>const SUBJECT_ID = {{ subject_id }};</script>
+<script src="{{ url_for('static', filename='js/student_subject_detail.js') }}"></script>
+{% endblock %}

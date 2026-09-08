@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Student dashboard — AttendAI{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-24" style="flex-wrap:wrap; gap:16px;">
+  <div>
+    <div class="eyebrow">Student panel</div>
+    <h2 class="h-section mt-8" id="welcomeText">My classes</h2>
+  </div>
+  <div class="flex gap-12">
+    <button class="btn btn-outline" id="faceStatusBtn">Face status</button>
+    <button class="btn btn-teal" id="joinClassBtn">Join a class</button>
+  </div>
+</div>
+
+<div id="activeSessionBanner"></div>
+<div id="alertBox"></div>
+
+<div class="grid grid-auto" id="classesGrid"></div>
+<div class="empty-state hidden" id="emptyState">
+  <p><strong>You're not enrolled in any classes yet.</strong><br>Ask your teacher for a join code, or enter it above.</p>
+</div>
+
+<!-- Join class modal -->
+<div class="modal-backdrop hidden" id="joinModalBackdrop">
+  <div class="modal">
+    <h3 class="h-card mb-16">Join a class</h3>
+    <div id="joinAlertBox"></div>
+    <form id="joinForm">
+      <div class="field">
+        <label for="joinCode">Class join code</label>
+        <input type="text" id="joinCode" placeholder="e.g. 7K2P9A" required style="text-transform:uppercase; letter-spacing:0.1em; font-family:var(--font-mono);">
+      </div>
+      <div class="flex gap-12">
+        <button type="button" class="btn btn-outline w-full" id="cancelJoinBtn">Cancel</button>
+        <button type="submit" class="btn btn-teal w-full">Join</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/student_dashboard.js') }}"></script>
+{% endblock %}

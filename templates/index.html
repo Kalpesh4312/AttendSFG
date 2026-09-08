@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}AttendAI — AI-Driven Attendance System{% endblock %}
+{% block content %}
+<section class="grid grid-2 items-center" style="min-height:60vh;">
+  <div>
+    <div class="eyebrow mb-16">Facial Recognition · Session Token · Geo-Fencing</div>
+    <h1 class="h-display" style="font-size:2.6rem;">Attendance that can't be faked.</h1>
+    <p style="font-size:1.05rem; max-width:480px; margin-top:14px;">
+      A single scan verifies who you are, where you are, and that you're in
+      the right session — all in the time it takes to say "present."
+    </p>
+    <div class="flex gap-12 mt-24">
+      <a href="/register" class="btn btn-teal">Create an account</a>
+      <a href="/login" class="btn btn-outline">Log in</a>
+    </div>
+  </div>
+
+  <div class="card" style="background:var(--navy-950); border:none; color:#fff;">
+    <div class="eyebrow" style="color:var(--teal);">How a session is verified</div>
+    <div class="mt-16">
+      <div class="pipeline-step">
+        <div class="pipeline-num">1</div>
+        <div>
+          <div class="pipeline-title">Teacher opens a session</div>
+          <div class="pipeline-desc">A time-bound token + classroom GPS location are generated for the lecture.</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-num">2</div>
+        <div>
+          <div class="pipeline-title">Student scans their face</div>
+          <div class="pipeline-desc">An in-browser AI model compares the live face against the enrolled record.</div>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-num">3</div>
+        <div>
+          <div class="pipeline-title">Location + token are checked</div>
+          <div class="pipeline-desc">The device must be inside the geo-fence and the token must still be valid.</div>
+        </div>
+      </div>
+      <div class="pipeline-step" style="margin-bottom:0;">
+        <div class="pipeline-num" style="background:var(--teal); border-color:var(--teal); color:#0a0e17;">✓</div>
+        <div>
+          <div class="pipeline-title">Attendance recorded instantly</div>
+          <div class="pipeline-desc">Stored centrally and visible to teachers as a live, real-time report.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="grid grid-3 mt-32">
+  <div class="card">
+    <div class="icon-badge mb-16">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 8V6a2 2 0 012-2h2M20 8V6a2 2 0 00-2-2h-2M4 16v2a2 2 0 002 2h2M20 16v2a2 2 0 01-2 2h-2M9 10a3 3 0 106 0 3 3 0 00-6 0zM8 17c0-1.7 1.8-3 4-3s4 1.3 4 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    </div>
+    <div class="h-card mb-16">Facial recognition</div>
+    <p>On-device face matching stops classmates from marking each other present.</p>
+  </div>
+  <div class="card">
+    <div class="icon-badge mb-16">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 8v4l3 2M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    </div>
+    <div class="h-card mb-16">Session tokens</div>
+    <p>Every lecture gets a fresh, time-limited code — yesterday's token is worthless today.</p>
+  </div>
+  <div class="card">
+    <div class="icon-badge mb-16">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-11.5A7 7 0 105 9.5C5 14.5 12 21 12 21z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="9.5" r="2.3" stroke="currentColor" stroke-width="1.7"/></svg>
+    </div>
+    <div class="h-card mb-16">Geo-fencing</div>
+    <p>Attendance only counts from inside the classroom's real GPS radius.</p>
+  </div>
+</section>
+{% endblock %}

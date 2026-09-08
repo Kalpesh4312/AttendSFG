@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Class — AttendAI{% endblock %}
+{% block content %}
+<a href="/student/dashboard" class="text-sm text-muted">← Back to my classes</a>
+
+<div class="flex justify-between items-center mt-16 mb-24" style="flex-wrap:wrap; gap:16px;">
+  <div>
+    <div class="eyebrow" id="classSubtitle"></div>
+    <h2 class="h-section mt-8" id="className">Loading…</h2>
+  </div>
+  <a href="/student/mark-attendance" class="btn btn-teal">Mark attendance</a>
+</div>
+
+<div id="alertBox"></div>
+
+<div class="h-card mb-16">My overall attendance</div>
+<div class="grid grid-3 mb-24">
+  <div class="card stat-card">
+    <div class="stat-value" id="overallPercent">—</div>
+    <div class="stat-label">Overall attendance</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-value" id="overallPresent">—</div>
+    <div class="stat-label">Sessions present (all subjects)</div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-value" id="overallTotal">—</div>
+    <div class="stat-label">Total sessions (all subjects)</div>
+  </div>
+</div>
+
+<div class="h-card mb-16">Subject-wise attendance</div>
+<div class="card mb-24">
+  <table>
+    <thead><tr><th>Subject</th><th>Present / Total</th><th>Attendance</th><th></th></tr></thead>
+    <tbody id="perSubjectBody"></tbody>
+  </table>
+  <div class="empty-state hidden" id="emptyPerSubject">No subjects yet.</div>
+</div>
+
+<div class="h-card mb-16">Subjects</div>
+<div class="grid grid-auto" id="subjectsGrid"></div>
+<div class="empty-state hidden" id="emptySubjects">Your teacher hasn't added any subjects to this class yet.</div>
+{% endblock %}
+{% block scripts %}
+<script>const CLASS_ID = {{ class_id }};</script>
+<script src="{{ url_for('static', filename='js/student_class_detail.js') }}"></script>
+{% endblock %}

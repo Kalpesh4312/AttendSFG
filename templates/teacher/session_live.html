@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Live session — AttendAI{% endblock %}
+{% block content %}
+<a href="#" id="backLink" class="text-sm text-muted">← Back to class</a>
+
+<div class="grid grid-2 mt-16" style="align-items:flex-start;">
+  <div>
+    <div class="token-display">
+      <div class="eyebrow" style="color:#9aa5b8;">Session token — display this to your class</div>
+      <div class="text-sm mt-8" id="sessionContext" style="color:#cbd3e1;"></div>
+      <div class="token-chars" id="tokenChars">------</div>
+      <div class="token-timer" id="tokenTimer">--:--</div>
+    </div>
+    <div class="card mt-24" id="statusCard">
+      <div class="flex justify-between items-center">
+        <span class="chip" id="sessionStatusChip">—</span>
+        <button class="btn btn-danger btn-sm" id="endSessionBtn">End session now</button>
+      </div>
+      <div class="grid grid-2 mt-24">
+        <div class="stat-card">
+          <div class="stat-value" id="presentCount">0</div>
+          <div class="stat-label">Present</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="absentCount">0</div>
+          <div class="stat-label">Not yet marked</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="h-card mb-16">Live attendance</div>
+    <div id="alertBox"></div>
+    <div class="eyebrow mb-8">Present</div>
+    <table class="mb-24">
+      <tbody id="presentBody"></tbody>
+    </table>
+    <div class="empty-state hidden" id="emptyPresent">No one has marked attendance yet.</div>
+
+    <div class="eyebrow mb-8">Not yet marked</div>
+    <table>
+      <tbody id="absentBody"></tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>const SESSION_ID = {{ session_id }};</script>
+<script src="{{ url_for('static', filename='js/session_live.js') }}"></script>
+{% endblock %}

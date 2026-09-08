@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Mark attendance — AttendAI{% endblock %}
+{% block content %}
+<div class="card" style="max-width:520px; margin:0 auto;">
+  <div class="text-center mb-24">
+    <div class="eyebrow">Live verification</div>
+    <h2 class="h-section mt-8">Mark attendance</h2>
+    <p class="mt-8">Enter the session token your teacher displayed, then verify your face and location.</p>
+  </div>
+
+  <div id="alertBox"></div>
+
+  <div class="field">
+    <label for="tokenInput">Session token</label>
+    <input type="text" id="tokenInput" placeholder="e.g. 7XQ2LP" style="text-transform:uppercase; letter-spacing:0.2em; font-family:var(--font-mono); font-size:1.1rem; text-align:center;" maxlength="8">
+  </div>
+
+  <div class="scan-wrap" id="scanWrap">
+    <video id="video" autoplay muted playsinline></video>
+    <div class="scan-ring"></div>
+  </div>
+  <div class="scan-status" id="scanStatus">Enter your token, then start verification</div>
+
+  <div class="grid" style="grid-template-columns:1fr; gap:8px; margin-top:8px;" id="checklist">
+    <div class="flex items-center gap-8 text-sm" id="checkToken"><span class="chip chip-muted">1</span> Session token</div>
+    <div class="flex items-center gap-8 text-sm" id="checkFace"><span class="chip chip-muted">2</span> Facial recognition</div>
+    <div class="flex items-center gap-8 text-sm" id="checkGeo"><span class="chip chip-muted">3</span> Geo-fence location</div>
+  </div>
+
+  <button class="btn btn-teal btn-block mt-24" id="verifyBtn">Start verification</button>
+  <button class="btn btn-outline btn-block mt-8 hidden" id="backToDashboardBtn">Back to dashboard</button>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='lib/face-api.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/face.js') }}"></script>
+<script src="{{ url_for('static', filename='js/geolocation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mark_attendance.js') }}"></script>
+{% endblock %}

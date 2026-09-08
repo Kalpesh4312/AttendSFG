@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Register — AttendAI{% endblock %}
+{% block nav %}{% endblock %}
+{% block content %}
+<div class="auth-shell" style="margin:-32px -24px;">
+  <div class="auth-side">
+    <a href="/" class="brand">
+      <span class="brand-mark">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span>AttendAI</span>
+    </a>
+    <div>
+      <div class="eyebrow" style="color:var(--teal);">Get started</div>
+      <h2 class="h-display mt-8" style="color:#fff;">One account, one identity.</h2>
+      <p class="mt-16" style="max-width:340px;">Students enroll their face once — it's then verified automatically at every future session.</p>
+    </div>
+    <div class="text-sm" style="color:#7c879b;">Semester Project · AI-Driven Attendance System</div>
+  </div>
+
+  <div class="auth-form-col">
+    <div class="auth-form-wrap">
+
+      <!-- ===================== STEP 1: account details ===================== -->
+      <div id="stepDetails">
+        <h2 class="h-section mb-24">Create your account</h2>
+
+        <div class="role-toggle">
+          <button type="button" class="active" data-role="student" id="roleStudentBtn">I'm a student</button>
+          <button type="button" data-role="teacher" id="roleTeacherBtn">I'm a teacher</button>
+        </div>
+
+        <div id="alertBox"></div>
+        <form id="detailsForm">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input type="text" id="name" required placeholder="Jane Doe">
+          </div>
+          <div class="field" id="enrollmentField">
+            <label for="enrollment_no">Enrollment / roll number</label>
+            <input type="text" id="enrollment_no" placeholder="231106003">
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" required placeholder="you@college.edu">
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" required placeholder="Create a password">
+            <div class="pw-checklist" id="pwChecklist"></div>
+          </div>
+          <div class="field">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" required placeholder="Re-enter password">
+          </div>
+          <input type="hidden" id="role" value="student">
+          <button type="submit" class="btn btn-teal btn-block" id="submitDetailsBtn">Send verification code</button>
+        </form>
+        <p class="text-center mt-16 text-sm">Already have an account? <a href="/login" style="color:var(--teal-dark); font-weight:700;">Log in</a></p>
+      </div>
+
+      <!-- ===================== STEP 2: OTP verification ===================== -->
+      <div id="stepOtp" class="hidden">
+        <h2 class="h-section mb-8">Verify your email</h2>
+        <p class="text-sm text-muted mb-24">We sent a 6-digit code to <b id="otpEmailLabel"></b>. Enter it below to finish creating your account.</p>
+
+        <div id="devOtpBanner" class="dev-otp-banner hidden"></div>
+        <div id="otpAlertBox"></div>
+
+        <form id="otpForm">
+          <div class="field">
+            <label for="otpInput">Verification code</label>
+            <input type="text" id="otpInput" class="otp-input" inputmode="numeric" maxlength="6" placeholder="000000" required>
+          </div>
+          <button type="submit" class="btn btn-teal btn-block" id="submitOtpBtn">Verify &amp; create account</button>
+        </form>
+
+        <div class="otp-resend">
+          Didn't get it? <button type="button" id="resendOtpBtn">Resend code</button>
+          &nbsp;·&nbsp;
+          <button type="button" id="backToDetailsBtn">Change email</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/password_strength.js') }}"></script>
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock %}
